@@ -22,6 +22,7 @@ import redis.clients.jedis.util.SafeEncoder;
 public class RedisAI implements AutoCloseable {
 
   private final Pool<Jedis> pool;
+  private Jedis jedis;
 
   /** Create a new RedisAI client with default connection to local host */
   public RedisAI() {
@@ -78,6 +79,11 @@ public class RedisAI implements AutoCloseable {
     this.pool = pool;
   }
 
+  public RedisAI(Jedis jedis) {
+	 this.jedis = jedis;
+	 this.pool = null;
+  }
+
   @Override
   public void close() {
     this.pool.close();
@@ -105,7 +111,7 @@ public class RedisAI implements AutoCloseable {
   }
 
   private Jedis getConnection() {
-    return pool.getResource();
+	return jedis != null ? jedis : pool.getResource();
   }
 
   private BinaryClient sendCommand(Jedis conn, Command command, byte[]... args) {
