@@ -2,11 +2,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
-	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<packaging>jar</packaging>
 	<groupId>com.redislabs</groupId>
@@ -200,34 +195,5 @@
 			</plugin>
 		</plugins>
     </build>
-	<profiles>
-		<profile>
-			<id>release</id>
-			<build>
-				<plugins>
-					<!--Sign the components - this is required by maven central for releases -->
-					<plugin>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>3.0.1</version>
-						<configuration>
-								<gpgArguments>
-									<arg>--pinentry-mode</arg>
-									<arg>loopback</arg>
-								</gpgArguments>
-						</configuration>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 
 </project>
